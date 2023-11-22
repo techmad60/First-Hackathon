@@ -6,8 +6,9 @@ const profileModal = document.getElementById('profile-modal');
 const showStepsbutton = document.getElementById('show-steps-btn');
 const arrowUp = document.getElementById('arrow-up');
 const articles = document.querySelectorAll('.article');
-function initializeTransitionButton(buttonId) {
+function initializeTransitionButton(buttonId, hiddenDivId) {
   const transitionButton = document.getElementById(buttonId);
+  const hiddenDiv = document.getElementById(hiddenDivId);
 
   let currentStage = 1; // Initial stage
   let automaticToggle = false;
@@ -17,16 +18,20 @@ function initializeTransitionButton(buttonId) {
       transitionButton.className = `transition-button stage${currentStage}`;
 
       if (currentStage !== 3 && automaticToggle) {
-          setTimeout(toggleStage, 2000); // Adjust the time interval (in milliseconds) as needed
+          setTimeout(toggleStage, 100); // Adjust the time interval (in milliseconds) as needed
       } else {
           automaticToggle = false;
       }
+
+      // Toggle visibility of the hidden div
+      hiddenDiv.style.display = (currentStage === 3) ? 'block' : 'none';
   }
 
   transitionButton.addEventListener('click', function () {
       if (currentStage === 3) {
           currentStage = 1;
           transitionButton.className = `transition-button stage${currentStage}`;
+          hiddenDiv.style.display = 'none';
       } else {
           automaticToggle = true;
           toggleStage();
@@ -34,12 +39,13 @@ function initializeTransitionButton(buttonId) {
   });
 }
 
-// Apply the function to each button
-initializeTransitionButton('transitionButton1');
-initializeTransitionButton('transitionButton2');
-initializeTransitionButton('transitionButton3');
-initializeTransitionButton('transitionButton4');
-initializeTransitionButton('transitionButton5');
+// Apply the function to each button and its corresponding hidden div
+initializeTransitionButton('transitionButton1', 'hiddenDiv1');
+initializeTransitionButton('transitionButton2', 'hiddenDiv2');
+initializeTransitionButton('transitionButton3', 'hiddenDiv3');
+initializeTransitionButton('transitionButton4', 'hiddenDiv4');
+initializeTransitionButton('transitionButton4', 'hiddenDiv5');
+
 
 
 // Function to toggle modal visibility

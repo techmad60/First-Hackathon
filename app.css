@@ -92,7 +92,7 @@ input::placeholder {
     color: #e3e3e3;
 }
 
-.profile-modal-container, .alert-modal-container, article {
+.profile-modal-container, .alert-modal-container, article, .article-content {
     display: none;
 }
 
@@ -100,7 +100,7 @@ input::placeholder {
     display: flex;
 }
 
-.show-article {
+.show-article, .show-article-content {
     display: block;
 }
 
