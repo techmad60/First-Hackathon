@@ -92,8 +92,19 @@ input::placeholder {
     color: #e3e3e3;
 }
 
-.alert-modal-container {
+.profile-modal-container, .alert-modal-container, article {
+    display: none;
+}
+
+.show-modal {
     display: flex;
+}
+
+.show-article {
+    display: block;
+}
+
+.alert-modal-container {
     flex-direction: column;
     align-items: center;
     position: relative;
@@ -119,7 +130,6 @@ input::placeholder {
     color: green;
 }
 .profile-modal-container {
-    display: flex;
     position: relative;
     width: 100%;
     justify-content: flex-end;
@@ -213,7 +223,28 @@ h1 {
 .rotate-down {
     transform: rotate(180deg);
     transition: transform 0.3s ease; /* Optional: add a smooth transition effect */
-  }
+}
+
+/* Define styles for each stage */
+.transition-button svg {
+    display: none;
+}
+
+.transition-button.stage1 svg:nth-child(1) {
+    display: inline;
+}
+
+.transition-button.stage2 svg:nth-child(2) {
+    display: inline;
+}
+
+.transition-button.stage3 svg:nth-child(3) {
+    display: inline;
+}
+
+
+
+
 
 /* UTILITY CLASSES */
 .flex {
