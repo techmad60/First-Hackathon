@@ -92,7 +92,7 @@ input::placeholder {
     color: #e3e3e3;
 }
 
-.profile-modal-container, .alert-modal-container, article, .article-content {
+.profile-modal-container, .alert-modal-container, article, .hidden {
     display: none;
 }
 
@@ -219,6 +219,15 @@ h1 {
 }
 .steps {
     align-items: center;
+}
+.progress-bar-container{
+    width: 90px;
+    height: .5em;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+.progress-bar {
+    background-color: #1C181D;
 }
 .rotate-down {
     transform: rotate(180deg);

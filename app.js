@@ -6,9 +6,10 @@ const profileModal = document.getElementById('profile-modal');
 const showStepsbutton = document.getElementById('show-steps-btn');
 const arrowUp = document.getElementById('arrow-up');
 const articles = document.querySelectorAll('.article');
-function initializeTransitionButton(buttonId, hiddenDivId) {
+
+function initializeTransitionButton(buttonId) {
   const transitionButton = document.getElementById(buttonId);
-  const hiddenDiv = document.getElementById(hiddenDivId);
+
 
   let currentStage = 1; // Initial stage
   let automaticToggle = false;
@@ -22,16 +23,12 @@ function initializeTransitionButton(buttonId, hiddenDivId) {
       } else {
           automaticToggle = false;
       }
-
-      // Toggle visibility of the hidden div
-      hiddenDiv.style.display = (currentStage === 3) ? 'block' : 'none';
   }
 
   transitionButton.addEventListener('click', function () {
       if (currentStage === 3) {
           currentStage = 1;
           transitionButton.className = `transition-button stage${currentStage}`;
-          hiddenDiv.style.display = 'none';
       } else {
           automaticToggle = true;
           toggleStage();
@@ -40,15 +37,62 @@ function initializeTransitionButton(buttonId, hiddenDivId) {
 }
 
 // Apply the function to each button and its corresponding hidden div
-initializeTransitionButton('transitionButton1', 'hiddenDiv1');
-initializeTransitionButton('transitionButton2', 'hiddenDiv2');
-initializeTransitionButton('transitionButton3', 'hiddenDiv3');
-initializeTransitionButton('transitionButton4', 'hiddenDiv4');
-initializeTransitionButton('transitionButton4', 'hiddenDiv5');
+initializeTransitionButton('transitionButton1');
+initializeTransitionButton('transitionButton2');
+initializeTransitionButton('transitionButton3');
+initializeTransitionButton('transitionButton4');
+initializeTransitionButton('transitionButton5');
 
+// let visibleDiv = document.getElementById('Visiblediv');
 
+//     articles.forEach(function (article) {
+//         const articleContentToggle = article.querySelector('.open-article-content');
+
+//         articleContentToggle.addEventListener('click', function () {
+//             // Check if the clicked article contains the visibleDiv
+//             const isVisibleDiv = article.contains(visibleDiv);
+
+//             // Toggle the visibility of the visibleDiv based on the clicked article
+//             if (isVisibleDiv) {
+//                 visibleDiv.style.display = (visibleDiv.style.display === 'none') ? 'block' : 'none';
+//             } else {
+//                 // Hide the current visibleDiv
+//                 if (visibleDiv) {
+//                     visibleDiv.style.display = 'none';
+//                 }
+
+//                 // Update visibleDiv to the next corresponding hidden div
+//                 visibleDiv = article.querySelector('.hidden');
+
+//                 // Show the new visibleDiv
+//                 if (visibleDiv) {
+//                     visibleDiv.style.display = 'block';
+//                 }
+//             }
+//         });
+//     });
 
 // Function to toggle modal visibility
+// Add event listeners to all open-article-content elements
+document.querySelectorAll('.open-article-content').forEach(contentElement => {
+  contentElement.addEventListener('click', () => {
+      // Hide the current Visiblediv
+      const currentVisibleDiv = document.querySelector('.Visible');
+      if (currentVisibleDiv) {
+          currentVisibleDiv.classList.remove('Visible');
+          currentVisibleDiv.classList.add('hidden');
+      }
+
+      // Show the next hiddenDiv based on the clicked element
+      const nextHiddenDivId = contentElement.parentElement.nextElementSibling.id;
+      const nextHiddenDiv = document.getElementById(nextHiddenDivId);
+      if (nextHiddenDiv) {
+          nextHiddenDiv.classList.remove('hidden');
+          nextHiddenDiv.classList.add('Visible');
+      }
+  });
+});
+
 function toggleModal(modalElement) {
   modalElement.classList.toggle('show-modal');
 }

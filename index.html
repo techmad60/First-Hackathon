@@ -121,9 +121,16 @@
                         </button>
                     </div>
                     <p>Use this personalized guide to get your store up and running.</p>
-                    <p class="steps-completed">1/5 completed</p>
+                    <div class="flex align-center">
+                        <p class="steps-completed"><span id="steps-completed">0</span>/5 completed</p>
+                        <div id="progress-bar-container" class="progress-bar-container ml-1">
+                            <div class="progress-bar">
+                            </div>
+                        </div>
+                    </div>
+                   
                 </div>
-                <article class="m-1 article">
+                <article class="m-1 article" data-article-id="1">
                     <div class="flex steps">
                         <button id="transitionButton1" class="transition-button stage1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -147,10 +154,10 @@
                             </svg>
                         </button>
                         
-                        <p class="ml-1">Customize your online store</p>
+                        <p class="open-article-content ml-1">Customize your online store</p>
                     </div>
 
-                    <div id="hiddenDiv1" class="article-content">
+                    <div id="Visiblediv" class="Visible">
                         <p>Choose a theme and add your logo, color and images to reflect your brand.</p>
                         <button>
                          Learn more
@@ -163,7 +170,7 @@
                    <!-- <img src="https://crushingit.tech/hackathon-assets/customise-store.png" alt="Customize store"> -->
                 </article>
 
-                <article class="m-1 article">
+                <article class="m-1 article" data-article-id="2">
                     <div class="flex">
                         <button id="transitionButton2" class="transition-button stage1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -186,10 +193,10 @@
                             ></path>
                            </svg>
                         </button>
-                        <p class="ml-1">Add your first product</p>
+                        <p class="open-article-content ml-1">Add your first product</p>
                     </div>
 
-                    <div id="hiddenDiv2" class="article-content">
+                    <div id="hiddenDiv2" class="hidden">
                         <p>Write a description, add photos, and set pricing for the products you plan to sell.</p>
                         <button>
                          Add product
@@ -202,7 +209,7 @@
                     <!-- <img src="https://crushingit.tech/hackathon-assets/product.png" alt="Product"> -->
                 </article>
                 
-                <article class="m-1 article">
+                <article class="m-1 article" data-article-id="3">
                     <div class="flex">
                         <button id="transitionButton3" class="transition-button stage1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -225,10 +232,10 @@
                             ></path>
                            </svg>
                         </button>
-                        <p class="ml-1">Add a custom domain</p>
+                        <p class="open-article-content ml-1">Add a custom domain</p>
                     </div>
 
-                    <div id="hiddenDiv3" class="article-content">
+                    <div id="hiddenDiv3" class="hidden">
                         <p>Your current domain is 222219.myshopify.com but you can add a domain to help customers find your online store.</p>
                         <button>
                          Learn more
@@ -241,7 +248,7 @@
                     <!-- <img src="https://crushingit.tech/hackathon-assets/website.png" alt="Copy domain"> -->
                 </article>
                 
-                <article class="m-1 article">
+                <article class="m-1 article" data-article-id="4">
                     <div class="flex">
                          <button id="transitionButton4" class="transition-button stage1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -264,10 +271,10 @@
                             ></path>
                            </svg>
                         </button>
-                        <p class="ml-1">Name your store</p>
+                        <p class="open-article-content ml-1">Name your store</p>
                     </div>
 
-                    <div id="hiddenDiv4" class="article-content">
+                    <div id="hiddenDiv4" class="hidden">
                         <p>Your temporary store name is currently Davii collections. The store name appears in your admin and your online store.</p>
                         <button>
                          Learn more
@@ -279,7 +286,7 @@
                    
                     <!-- <img src="https://crushingit.tech/hackathon-assets/name-store.png" alt="Name store"> -->
                 </article>
-                <article class="m-1 article">
+                <article class="m-1 article" data-article-id="5">
                     <div class="flex">
                         <button id="transitionButton5" class="transition-button stage1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -302,10 +309,10 @@
                             ></path>
                            </svg>
                         </button>
-                        <p class="ml-1">Set up a payment provider</p>
+                        <p class="open-article-content ml-1">Set up a payment provider</p>
                     </div>
 
-                    <div id="hiddenDiv5" class="article-content">
+                    <div id="hiddenDiv5" class="hidden">
                         <p>Choose a payment provider to start accepting payments. You'll need to create an account with the payment provider and set it up with your Shopify store.</p>
                         <button>
                          Learn more
