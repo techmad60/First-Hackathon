@@ -100,7 +100,7 @@ input::placeholder {
     display: flex;
 }
 
-.show-article, .show-article-content {
+.show-article, .show-article-content, .Visible {
     display: block;
 }
 

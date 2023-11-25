@@ -43,37 +43,92 @@ initializeTransitionButton('transitionButton3');
 initializeTransitionButton('transitionButton4');
 initializeTransitionButton('transitionButton5');
 
-// let visibleDiv = document.getElementById('Visiblediv');
 
-//     articles.forEach(function (article) {
-//         const articleContentToggle = article.querySelector('.open-article-content');
+// // Add event listeners to all transition buttons
+// document.querySelectorAll('.transition-button').forEach(transitionButton => {
+//   let clickCount = 0; // Variable to track the number of clicks
 
-//         articleContentToggle.addEventListener('click', function () {
-//             // Check if the clicked article contains the visibleDiv
-//             const isVisibleDiv = article.contains(visibleDiv);
+//   transitionButton.addEventListener('click', () => {
+//       // Check if the current Visiblediv is hidden
+//       const currentVisibleDiv = document.querySelector('.Visible');
+//       const targetHiddenDivId = transitionButton.dataset.targetHiddenDiv;
+//       const targetHiddenDiv = document.getElementById(targetHiddenDivId);
+//       console.log(targetHiddenDiv)
+//       console.log(currentVisibleDiv)
 
-//             // Toggle the visibility of the visibleDiv based on the clicked article
-//             if (isVisibleDiv) {
-//                 visibleDiv.style.display = (visibleDiv.style.display === 'none') ? 'block' : 'none';
-//             } else {
-//                 // Hide the current visibleDiv
-//                 if (visibleDiv) {
-//                     visibleDiv.style.display = 'none';
-//                 }
+//       if (currentVisibleDiv && targetHiddenDiv) {
+//           clickCount++;
 
-//                 // Update visibleDiv to the next corresponding hidden div
-//                 visibleDiv = article.querySelector('.hidden');
+//           console.log(`Button clicked ${clickCount} times`); // Log the click count
 
-//                 // Show the new visibleDiv
-//                 if (visibleDiv) {
-//                     visibleDiv.style.display = 'block';
-//                 }
-//             }
-//         });
-//     });
+//           if (clickCount % 2 === 0) {
+//               // On every even click, toggle between hidden and visible states
+//               currentVisibleDiv.classList.add('Visible');
+//               currentVisibleDiv.remove('hidden')
+//               // targetHiddenDiv.classList.toggle('Visible');
+//           } else {
+//               // On odd clicks, hide the current Visiblediv and show the corresponding hiddenDiv
+//               if (currentVisibleDiv !== targetHiddenDiv) {
+//                   currentVisibleDiv.classList.remove('Visible');
+//                   currentVisibleDiv.classList.add('hidden');
+//               }
 
-// Function to toggle modal visibility
-// Add event listeners to all open-article-content elements
+//               targetHiddenDiv.classList.remove('hidden');
+//               targetHiddenDiv.classList.add('Visible');
+//           }
+//       }
+//   });
+// });
+
+// Store the click counts for each button
+const clickCounts = {}
+// Add event listeners to all transition buttons
+document.querySelectorAll('.transition-button').forEach(transitionButton => {
+  clickCounts[transitionButton.id] = 0;  // Initialize click count for each button
+  transitionButton.addEventListener('click', () => {
+
+    // Increment the click count for the clicked button
+    clickCounts[transitionButton.id]++;
+
+    // Check if the click count is even for the clicked button
+    const isEvenClick = clickCounts[transitionButton.id] % 2 === 0;
+
+   
+    // Hide the current Visiblediv
+    const currentVisibleDiv = document.querySelector('.Visible');
+    const targetHiddenDivId = transitionButton.dataset.targetHiddenDiv;
+    const targetHiddenDiv = document.getElementById(targetHiddenDivId);
+    const openUpDivId= transitionButton.dataset.openUpDiv;
+    const openUpDiv = document.getElementById( openUpDivId);
+    
+    if (currentVisibleDiv) {
+      currentVisibleDiv.classList.remove('Visible');
+      currentVisibleDiv.classList.add('hidden');
+    }
+    
+    if (targetHiddenDiv) {
+      targetHiddenDiv.classList.remove('hidden');
+      targetHiddenDiv.classList.add('Visible');
+    }
+    
+
+    console.log(currentVisibleDiv)
+    console.log(openUpDiv)
+
+     // Check if the click count is even
+     if (isEvenClick && openUpDiv) {
+      openUpDiv.classList.remove('hidden');
+      openUpDiv.classList.add('Visible');
+      targetHiddenDiv.classList.add('hidden');
+      targetHiddenDiv.classList.remove('Visible');
+    }
+
+    
+  });
+
+});
+
+
 document.querySelectorAll('.open-article-content').forEach(contentElement => {
   contentElement.addEventListener('click', () => {
       // Hide the current Visiblediv
@@ -92,7 +147,7 @@ document.querySelectorAll('.open-article-content').forEach(contentElement => {
       }
   });
 });
-
+// Function to toggle modal visibility
 function toggleModal(modalElement) {
   modalElement.classList.toggle('show-modal');
 }
