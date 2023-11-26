@@ -44,44 +44,23 @@ initializeTransitionButton('transitionButton4');
 initializeTransitionButton('transitionButton5');
 
 
-// // Add event listeners to all transition buttons
-// document.querySelectorAll('.transition-button').forEach(transitionButton => {
-//   let clickCount = 0; // Variable to track the number of clicks
+// Select the profile button
+const profileButton = document.getElementById('profile-btn');
 
-//   transitionButton.addEventListener('click', () => {
-//       // Check if the current Visiblediv is hidden
-//       const currentVisibleDiv = document.querySelector('.Visible');
-//       const targetHiddenDivId = transitionButton.dataset.targetHiddenDiv;
-//       const targetHiddenDiv = document.getElementById(targetHiddenDivId);
-//       console.log(targetHiddenDiv)
-//       console.log(currentVisibleDiv)
-
-//       if (currentVisibleDiv && targetHiddenDiv) {
-//           clickCount++;
-
-//           console.log(`Button clicked ${clickCount} times`); // Log the click count
-
-//           if (clickCount % 2 === 0) {
-//               // On every even click, toggle between hidden and visible states
-//               currentVisibleDiv.classList.add('Visible');
-//               currentVisibleDiv.remove('hidden')
-//               // targetHiddenDiv.classList.toggle('Visible');
-//           } else {
-//               // On odd clicks, hide the current Visiblediv and show the corresponding hiddenDiv
-//               if (currentVisibleDiv !== targetHiddenDiv) {
-//                   currentVisibleDiv.classList.remove('Visible');
-//                   currentVisibleDiv.classList.add('hidden');
-//               }
-
-//               targetHiddenDiv.classList.remove('hidden');
-//               targetHiddenDiv.classList.add('Visible');
-//           }
-//       }
-//   });
-// });
+// Add a click event listener to the profile button
+profileButton.addEventListener('click', () => {
+  // Toggle the border style for the profile button
+  profileButton.style.border = (profileButton.style.border === 'rgb(6, 52, 6)') ? 'none' : 'rgb(6, 52, 6)';
+});
 
 // Store the click counts for each button
-const clickCounts = {}
+const clickCounts = {};
+let stepsCompletedCount = 0;
+
+// Select the steps completed span
+const stepsCompletedSpan = document.getElementById('steps-completed');
+
+const progressBar = document.querySelector('.progress-bar');
 // Add event listeners to all transition buttons
 document.querySelectorAll('.transition-button').forEach(transitionButton => {
   clickCounts[transitionButton.id] = 0;  // Initialize click count for each button
@@ -93,37 +72,48 @@ document.querySelectorAll('.transition-button').forEach(transitionButton => {
     // Check if the click count is even for the clicked button
     const isEvenClick = clickCounts[transitionButton.id] % 2 === 0;
 
+    // Check if the click count is odd or even for the clicked button
+    const isOddClick = clickCounts[transitionButton.id] % 2 !== 0;
+
+    // Update the progress bar based on odd or even click
+    const progressBarWidth = parseInt(window.getComputedStyle(progressBar).width);
+    progressBar.style.width = isOddClick ? `${progressBarWidth + 18}px` : `${progressBarWidth - 18}px`;
+
+     // Update steps completed count based on odd or even click
+     stepsCompletedCount = isOddClick ? stepsCompletedCount + 1 : stepsCompletedCount - 1;
+
+     // Ensure the stepsCompletedCount stays within the range [0, 5]
+     stepsCompletedCount = Math.min(5, Math.max(0, stepsCompletedCount));
+ 
+     // Update the steps completed span
+     stepsCompletedSpan.textContent = `${stepsCompletedCount}`;
+
+
    
     // Hide the current Visiblediv
-    const currentVisibleDiv = document.querySelector('.Visible');
+    const currentVisibleDiv = document.querySelector('.visible');
     const targetHiddenDivId = transitionButton.dataset.targetHiddenDiv;
     const targetHiddenDiv = document.getElementById(targetHiddenDivId);
     const openUpDivId= transitionButton.dataset.openUpDiv;
     const openUpDiv = document.getElementById( openUpDivId);
     
     if (currentVisibleDiv) {
-      currentVisibleDiv.classList.remove('Visible');
+      currentVisibleDiv.classList.remove('visible');
       currentVisibleDiv.classList.add('hidden');
     }
     
     if (targetHiddenDiv) {
       targetHiddenDiv.classList.remove('hidden');
-      targetHiddenDiv.classList.add('Visible');
+      targetHiddenDiv.classList.add('visible');
     }
-    
-
-    console.log(currentVisibleDiv)
-    console.log(openUpDiv)
-
+   
      // Check if the click count is even
      if (isEvenClick && openUpDiv) {
       openUpDiv.classList.remove('hidden');
-      openUpDiv.classList.add('Visible');
+      openUpDiv.classList.add('visible');
       targetHiddenDiv.classList.add('hidden');
-      targetHiddenDiv.classList.remove('Visible');
+      targetHiddenDiv.classList.remove('visible');
     }
-
-    
   });
 
 });
@@ -132,9 +122,9 @@ document.querySelectorAll('.transition-button').forEach(transitionButton => {
 document.querySelectorAll('.open-article-content').forEach(contentElement => {
   contentElement.addEventListener('click', () => {
       // Hide the current Visiblediv
-      const currentVisibleDiv = document.querySelector('.Visible');
+      const currentVisibleDiv = document.querySelector('.visible');
       if (currentVisibleDiv) {
-          currentVisibleDiv.classList.remove('Visible');
+          currentVisibleDiv.classList.remove('visible');
           currentVisibleDiv.classList.add('hidden');
       }
 
@@ -143,7 +133,7 @@ document.querySelectorAll('.open-article-content').forEach(contentElement => {
       const nextHiddenDiv = document.getElementById(nextHiddenDivId);
       if (nextHiddenDiv) {
           nextHiddenDiv.classList.remove('hidden');
-          nextHiddenDiv.classList.add('Visible');
+          nextHiddenDiv.classList.add('visible');
       }
   });
 });
