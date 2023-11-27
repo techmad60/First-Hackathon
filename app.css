@@ -19,7 +19,7 @@ body {
 
 img {
     max-width: 100%;
-    display: block;
+    display: none;
 }
 
 input, button, textarea, select {
@@ -97,6 +97,10 @@ input::placeholder {
     display: none;
 }
 
+.flex-box{
+    display: flex;
+}
+
 .show-modal {
     display: flex;
 }
@@ -119,11 +123,13 @@ input::placeholder {
     background-color: white;
     padding: 1em;
     width: 90%;
+    box-shadow: 0px 0px 3px rgb(168, 167, 167);
 }
 
 .alert-modal > p {
     background-color: #e3e1e1;
 }
+
 .profile {
     background-color: rgb(14, 226, 156);
     border-radius: 6px;
@@ -132,12 +138,15 @@ input::placeholder {
     color: green;
 }
 
+.open-article-content {
+    margin-bottom: 1em;
+}
+
 .profile-modal-container {
     position: relative;
     width: 100%;
     justify-content: flex-end;
-   
-   
+    top: 6em;
 }
 .profile-modal {
     display: flex;
@@ -148,9 +157,8 @@ input::placeholder {
     padding: .3em .4em;
     margin-right: 1em;
     position: absolute;
-    top: 6em;
     background-color: white;
-    box-shadow: 0px 4px 5px 0px #e3e1e1;
+    box-shadow: 0px 0px 3px rgb(168, 167, 167);
 }
 .profile-modal div:first-child {
     background-color: #e3e3e3;
@@ -192,18 +200,19 @@ main {
 .setup{
     display: flex;
     flex-direction: column;
-    padding: 1em;
     background-color: white;
 }
-
+.setup > div {
+    padding: 1em;
+}
 h1 {
     font-size: 22px;
 }
 
-.select-plan button:last-child {
+.select-plan a {
     background-color: white;
     padding: .4em .6em;
-    /* margin: 1em 0; */
+    color: black;
     border-radius: 4px;
 }
 .setup-heading {
@@ -211,14 +220,23 @@ h1 {
     align-items: center;
     justify-content: space-between;
 }
+article {
+    padding: .5em;
+    border-radius: 10px;
+}
+
 .article-content {
-   margin-left: 2.6em;
+    flex-direction: column;
+    margin-left: 2.6em;
+}
+.article.selected {
+    background-color: #f1f1f1;
 }
 .steps-completed {
     margin: 1em 0;
 }
-.steps {
-    align-items: center;
+.article-heading {
+    align-items: start;
 }
 .progress-bar-container{
     width: 90px;
@@ -284,11 +302,19 @@ h1 {
     justify-self: last baseline;
     align-self: flex-end;
 }
-.color-white {
-    filter: brightness(0) invert(1);
+.blue {
+    color: #005bd3;
+}
+.dark-brown {
+    background-color: #322F33;
+    border: 1px solid #322F33;
+    border-radius: 10px;
+    color: white;
+    margin: 1em 0;
+    padding: .7em;
 }
 .m-1 {
-    margin: .5em 0;
+    margin: .5em ;
 }
 .ml-1{
     margin-left: .5em;
@@ -332,12 +358,18 @@ h1 {
     .select-plan {
         padding: 1.5em 3em;
     }
-    .profile-modal {
+    .profile-modal, .alert-modal {
         margin-right: 3em;
+    }
+    .alert-modal-container {
+        align-items: flex-end;
     }
 }
 
 @media (min-width: 1024px) {
+    img {
+        display: block;
+    }
     .mobile-logo {
         display: none;
     }
@@ -356,11 +388,52 @@ h1 {
         border-radius: 10px;
         margin-right: .5em;
     }
+    .profile-details{
+        background-color: #322F33;
+        border-radius: 10px;
+    }
     .profile-name {
         display: block;
-        background-color: #322F33;
         color: white;
-        padding: .3em;
+        padding: .4em;
+        
+    }
+    .profile-modal-container, .alert-modal-container{
+        top: 5em;
+
+    }
+    .profile-modal, .alert-modal {
+        width: 20%;
+        margin-right: 1em;
+    }
+    .select-plan {
+        width: 70%;
+        flex-direction: row;
+        align-self: center;
+        align-items: first baseline;
+        justify-content: space-between;
+        padding: 1em;
         border-radius: 10px;
+    }
+
+    .select-plan .close-button {
+        order: 3;
+        align-self: center;
+    }
+    .select-plan button:last-child {
+        margin-right: 0;
+        position: relative;
+        left: 2em;
+    }
+    .setup {
+        width: 70%;
+        align-self: center;
+        background-color: white;
+        padding: 1em;
+        border-radius: 20px;
+        box-shadow: 0px 0px 3px rgb(168, 167, 167);
+    }
+    .article-content {
+        flex-direction: row;
     }
 }

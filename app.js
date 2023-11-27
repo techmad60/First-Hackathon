@@ -6,6 +6,19 @@ const profileModal = document.getElementById('profile-modal');
 const showStepsbutton = document.getElementById('show-steps-btn');
 const arrowUp = document.getElementById('arrow-up');
 const articles = document.querySelectorAll('.article');
+const closeBtn = document.querySelector('.close-button');
+const selectPlan = document.querySelector('.select-plan');
+// Store the click counts for each button
+const clickCounts = {};
+// Select the steps completed span
+const stepsCompletedSpan = document.getElementById('steps-completed');
+const progressBar = document.querySelector('.progress-bar');
+let stepsCompletedCount = 0;
+
+
+closeBtn.addEventListener('click', () => {
+  selectPlan.classList.add('hidden');
+})
 
 function initializeTransitionButton(buttonId) {
   const transitionButton = document.getElementById(buttonId);
@@ -26,13 +39,13 @@ function initializeTransitionButton(buttonId) {
   }
 
   transitionButton.addEventListener('click', function () {
-      if (currentStage === 3) {
-          currentStage = 1;
-          transitionButton.className = `transition-button stage${currentStage}`;
-      } else {
-          automaticToggle = true;
-          toggleStage();
-      }
+    if (currentStage === 3) {
+        currentStage = 1;
+        transitionButton.className = `transition-button stage${currentStage}`;
+    } else {
+        automaticToggle = true;
+        toggleStage();
+    }
   });
 }
 
@@ -53,91 +66,127 @@ profileButton.addEventListener('click', () => {
   profileButton.style.border = (profileButton.style.border === 'rgb(6, 52, 6)') ? 'none' : 'rgb(6, 52, 6)';
 });
 
-// Store the click counts for each button
-const clickCounts = {};
-let stepsCompletedCount = 0;
+let buttonFunctionalityEnabled = true;
+let articleFunctionalityEnabled = true;
 
-// Select the steps completed span
-const stepsCompletedSpan = document.getElementById('steps-completed');
-
-const progressBar = document.querySelector('.progress-bar');
+// Add 'selected' class to the first article by default
+articles[0].classList.add('selected');
 // Add event listeners to all transition buttons
 document.querySelectorAll('.transition-button').forEach(transitionButton => {
-  clickCounts[transitionButton.id] = 0;  // Initialize click count for each button
+  clickCounts[transitionButton.id] = 0;
   transitionButton.addEventListener('click', () => {
+    if (buttonFunctionalityEnabled) {
 
-    // Increment the click count for the clicked button
-    clickCounts[transitionButton.id]++;
+      articleFunctionalityEnabled = false;
+      buttonFunctionalityEnabled = true;
+      clickCounts[transitionButton.id]++;
 
-    // Check if the click count is even for the clicked button
-    const isEvenClick = clickCounts[transitionButton.id] % 2 === 0;
+      const isOddClick = clickCounts[transitionButton.id] % 2 !== 0;
 
-    // Check if the click count is odd or even for the clicked button
-    const isOddClick = clickCounts[transitionButton.id] % 2 !== 0;
+      const progressBarWidth = parseInt(window.getComputedStyle(progressBar).width);
+      progressBar.style.width = isOddClick ? `${progressBarWidth + 18}px` : `${progressBarWidth - 18}px`;
 
-    // Update the progress bar based on odd or even click
-    const progressBarWidth = parseInt(window.getComputedStyle(progressBar).width);
-    progressBar.style.width = isOddClick ? `${progressBarWidth + 18}px` : `${progressBarWidth - 18}px`;
+      stepsCompletedCount = isOddClick ? stepsCompletedCount + 1 : stepsCompletedCount - 1;
+      stepsCompletedCount = Math.min(5, Math.max(0, stepsCompletedCount));
+      stepsCompletedSpan.textContent = `${stepsCompletedCount}`;
 
-     // Update steps completed count based on odd or even click
-     stepsCompletedCount = isOddClick ? stepsCompletedCount + 1 : stepsCompletedCount - 1;
+      const currentVisibleDiv = document.querySelector('.flex-box');
+      const targetHiddenDivId = transitionButton.dataset.targetHiddenDiv;
+      const targetHiddenDiv = document.getElementById(targetHiddenDivId);
+      const openUpDivId = transitionButton.dataset.openUpDiv;
+      const openUpDiv = document.getElementById(openUpDivId);
 
-     // Ensure the stepsCompletedCount stays within the range [0, 5]
-     stepsCompletedCount = Math.min(5, Math.max(0, stepsCompletedCount));
- 
-     // Update the steps completed span
-     stepsCompletedSpan.textContent = `${stepsCompletedCount}`;
-
-
-   
-    // Hide the current Visiblediv
-    const currentVisibleDiv = document.querySelector('.visible');
-    const targetHiddenDivId = transitionButton.dataset.targetHiddenDiv;
-    const targetHiddenDiv = document.getElementById(targetHiddenDivId);
-    const openUpDivId= transitionButton.dataset.openUpDiv;
-    const openUpDiv = document.getElementById( openUpDivId);
-    
-    if (currentVisibleDiv) {
-      currentVisibleDiv.classList.remove('visible');
-      currentVisibleDiv.classList.add('hidden');
-    }
-    
-    if (targetHiddenDiv) {
-      targetHiddenDiv.classList.remove('hidden');
-      targetHiddenDiv.classList.add('visible');
-    }
-   
-     // Check if the click count is even
-     if (isEvenClick && openUpDiv) {
-      openUpDiv.classList.remove('hidden');
-      openUpDiv.classList.add('visible');
-      targetHiddenDiv.classList.add('hidden');
-      targetHiddenDiv.classList.remove('visible');
-    }
-  });
-
-});
-
-
-document.querySelectorAll('.open-article-content').forEach(contentElement => {
-  contentElement.addEventListener('click', () => {
-      // Hide the current Visiblediv
-      const currentVisibleDiv = document.querySelector('.visible');
       if (currentVisibleDiv) {
-          currentVisibleDiv.classList.remove('visible');
-          currentVisibleDiv.classList.add('hidden');
+        currentVisibleDiv.classList.remove('flex-box');
+        currentVisibleDiv.classList.add('hidden');
       }
 
-      // Show the next hiddenDiv based on the clicked element
-      const nextHiddenDivId = contentElement.parentElement.nextElementSibling.id;
-      const nextHiddenDiv = document.getElementById(nextHiddenDivId);
-      if (nextHiddenDiv) {
-          nextHiddenDiv.classList.remove('hidden');
-          nextHiddenDiv.classList.add('visible');
+      if (targetHiddenDiv && isOddClick) {
+        targetHiddenDiv.classList.remove('hidden');
+        targetHiddenDiv.classList.add('flex-box');
       }
+
+      if (openUpDiv && !isOddClick) {
+        openUpDiv.classList.remove('hidden');
+        openUpDiv.classList.add('flex-box');
+      }
+
+      // Remove 'selected' class from all articles
+      articles.forEach(article => article.classList.remove('selected'));
+
+      // Get the next article (sibling) and add 'selected' class
+      const nextArticle = transitionButton.closest('.article').nextElementSibling;
+      if (nextArticle) {
+        nextArticle.classList.add('selected');
+      }
+    }
+    
   });
 });
-// Function to toggle modal visibility
+
+
+
+articles.forEach(article => {
+  article.addEventListener('click', function () {
+    
+    if (articleFunctionalityEnabled) {
+      // Remove the 'selected' class from all articles
+      articles.forEach(otherArticle => otherArticle.classList.remove('selected'));
+
+      // Add the 'selected' class to the clicked article
+      article.classList.add('selected');
+      
+      // Get the target hidden div ID from the data attribute
+      const targetHiddenDivId = this.dataset.targetHiddenDiv;
+
+      // Close currently visible div
+      const visibleDiv = document.querySelector('.flex-box');
+      if (visibleDiv) {
+        visibleDiv.classList.remove('flex-box');
+        visibleDiv.classList.add('hidden');
+
+      }
+
+      // Toggle the visibility of the target hidden div
+      const targetHiddenDiv = document.getElementById(targetHiddenDivId);
+      if (targetHiddenDiv) {
+        targetHiddenDiv.classList.remove('hidden');
+        targetHiddenDiv.classList.add('flex-box');
+      }
+
+      articleFunctionalityEnabled = true;
+      buttonFunctionalityEnabled = false;
+    }
+    
+  });
+});
+
+
+
+
+// document.querySelectorAll('.open-article-content').forEach(contentElement => {
+//   contentElement.addEventListener('click', () => {
+//       // Hide the current Visiblediv
+//       const currentVisibleDiv = document.querySelector('.flex-box');
+//       if (currentVisibleDiv) {
+//         currentVisibleDiv.classList.remove('flex-box');
+//         currentVisibleDiv.classList.add('hidden');
+         
+//       }
+//       console.log(currentVisibleDiv);
+
+//       // Show the next hiddenDiv based on the clicked element
+//       const nextHiddenDivId = contentElement.parentElement.nextElementSibling.id;
+//       const nextHiddenDiv = document.getElementById
+//       (nextHiddenDivId);
+//       console.log(nextHiddenDiv)
+//       if (nextHiddenDiv) {
+//         nextHiddenDiv.classList.remove('hidden');
+//         nextHiddenDiv.classList.add('flex-box');
+//       }
+//   });
+// });
+// // Function to toggle modal visibility
 function toggleModal(modalElement) {
   modalElement.classList.toggle('show-modal');
 }
