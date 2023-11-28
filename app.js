@@ -118,11 +118,6 @@ document.querySelectorAll('.transition-button').forEach(transitionButton => {
     console.log(parentArticle);
     console.log(nextArticle);
     // Get the next article (sibling) and add 'selected' class
-    
-    // if (nextArticle) {
-    //   nextArticle.classList.add('selected');
-    //   parentArticle.classList.remove('selected');
-    // }
   });
 });
 
@@ -130,36 +125,29 @@ document.querySelectorAll('.transition-button').forEach(transitionButton => {
 
 // articles.forEach(article => {
 //   article.addEventListener('click', function () {
+//     // Remove the 'selected' class from all articles
+//     articles.forEach(otherArticle => otherArticle.classList.remove('selected'));
+
+//     // Add the 'selected' class to the clicked article
+//     article.classList.add('selected');
     
-//     if (articleFunctionalityEnabled) {
-//       // Remove the 'selected' class from all articles
-//       articles.forEach(otherArticle => otherArticle.classList.remove('selected'));
+//     // Get the target hidden div ID from the data attribute
+//     const targetHiddenDivId = this.dataset.targetHiddenDiv;
 
-//       // Add the 'selected' class to the clicked article
-//       article.classList.add('selected');
-      
-//       // Get the target hidden div ID from the data attribute
-//       const targetHiddenDivId = this.dataset.targetHiddenDiv;
+//     // Close currently visible div
+//     const visibleDiv = document.querySelector('.flex-box');
+//     if (visibleDiv) {
+//       visibleDiv.classList.remove('flex-box');
+//       visibleDiv.classList.add('hidden');
 
-//       // Close currently visible div
-//       const visibleDiv = document.querySelector('.flex-box');
-//       if (visibleDiv) {
-//         visibleDiv.classList.remove('flex-box');
-//         visibleDiv.classList.add('hidden');
-
-//       }
-
-//       // Toggle the visibility of the target hidden div
-//       const targetHiddenDiv = document.getElementById(targetHiddenDivId);
-//       if (targetHiddenDiv) {
-//         targetHiddenDiv.classList.remove('hidden');
-//         targetHiddenDiv.classList.add('flex-box');
-//       }
-
-//       articleFunctionalityEnabled = true;
-//       buttonFunctionalityEnabled = false;
 //     }
-    
+
+//     // Toggle the visibility of the target hidden div
+//     const targetHiddenDiv = document.getElementById(targetHiddenDivId);
+//     if (targetHiddenDiv) {
+//       targetHiddenDiv.classList.remove('hidden');
+//       targetHiddenDiv.classList.add('flex-box');
+//     }
 //   });
 // });
 
@@ -176,7 +164,8 @@ document.querySelectorAll('.open-article-content').forEach(contentElement => {
     console.log(currentVisibleDiv);
 
     // Show the next hiddenDiv based on the clicked element
-    const nextHiddenDivId = contentElement.parentElement.nextElementSibling.id;
+    const nextHiddenDivId = contentElement.nextElementSibling.id;
+  
     const nextHiddenDiv = document.getElementById
     (nextHiddenDivId);
     console.log(nextHiddenDiv)
@@ -188,6 +177,7 @@ document.querySelectorAll('.open-article-content').forEach(contentElement => {
     // Remove 'selected' class from all articles
     articles.forEach(article => article.classList.remove('selected'));
     const nextArticle = contentElement.closest('.article');
+    console.log(nextArticle)
     if (nextArticle) {
       nextArticle.classList.add('selected');
     }
