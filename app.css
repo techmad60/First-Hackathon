@@ -26,7 +26,7 @@ input, button, textarea, select {
     font: inherit;
 }
 
-a, button {
+a, button, .profile-details {
     cursor: pointer;
 }
 a {
@@ -121,6 +121,7 @@ input::placeholder {
     align-items: center;
     position: relative;
     width: 100%;
+    z-index: 1;
    
 }
 .alert-modal {
@@ -147,7 +148,6 @@ input::placeholder {
 
 .alert-modal-title {
     color: var(--font-dark, #303030);
-    font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
@@ -171,7 +171,6 @@ input::placeholder {
     flex: 1 0 0;
     color: var(--font-dark, #303030);
     text-align: center;
-    font-family: Inter;
     font-size: 13px;
     font-style: normal;
     font-weight: 600;
@@ -180,11 +179,14 @@ input::placeholder {
 
 .alert-btn {
     display: flex;
-    padding: 6px;
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    justify-content: center;
     align-items: center;
-    align-self: stretch;
-    color: #E3E3E3;
+    gap: 8px;
     border-radius: 8px;
+    background: var(--grey-grey-200, #303030);
 }
 .profile {
     display: flex;
@@ -206,6 +208,7 @@ input::placeholder {
     position: relative;
     width: 100%;
     align-items: flex-end;
+    z-index: 1;
     
 }
 .profile-modal {
@@ -223,15 +226,14 @@ input::placeholder {
     top: 4.5em;
     margin-right: 16px;
 }
-.profile-modal div:first-child {
+.profile-heading {
     display: flex;
     padding: 4px 12px 4px 8px;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
-    border-radius: 8px;
     margin: 0 6px;
-    background: var(--states-hover, #F1F1F1);
+    cursor: pointer;
 }
 .profile-title {
     display: flex;
@@ -240,7 +242,6 @@ input::placeholder {
 }
 .profile-fullname {
     color: var(--font-dark, #303030);
-    /* Text-13/semi bold */
     font-size: 13px;
     font-weight: 600;
     line-height: 140%; 
@@ -252,18 +253,43 @@ input::placeholder {
     gap: 8px;
     align-self: stretch;
     border-radius: 8px;
+    margin: 0 6px;
+    cursor: pointer;
 }
-.profile-modal .last-child a{
+.profile-heading:hover {
+    border-radius: 8px;
+    background: var(--states-hover, #F1F1F1);
+}
+.profile-heading:active {
+    border-radius: 8px;
+    background: var(--states-hover, #F0F0F0);
+}
+.profile-heading:focus {
+    border-radius: 8px;
+    border: 2px solid var(--states-focused, #005BD3);
+}
+.profile-modal .last-child:hover {
+    border-radius: 8px;
+    background: var(--states-hover, #F1F1F1);
+}
+.profile-modal .last-child:active {
+    border-radius: 8px;
+    background: var(--states-pressed, #F0F0F0);
+}
+.profile-modal .last-child:focus {
+    border-radius: 8px;
+    outline: 2px solid var(--states-focused, #005BD3);
+}
+.profile-modal .last-child p{
     color: var(--font-dark, #303030);
-    font-family: Inter;
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height: 140%; 
 }
-.profile-modal ul {
+.profile-modal-links {
     display: flex;
-    padding: 0px 6px;
+    padding: 3px 6px;
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
@@ -271,20 +297,19 @@ input::placeholder {
     
 }
 
-.profile-modal ul:first-of-type {
+.profile-modal-links:first-of-type {
     border: 1px solid #F1F1F1;
     border-top: 1px solid #F1F1F1 ;
     border-bottom: 1px solid #F1F1F1;
 }
 
-.profile-modal ul li {
+.profile-modal-links a {
     display: flex;
     padding: 6px;
     align-items: center;
     gap: 8px;
     align-self: stretch;
     color: var(--font-dark, #303030);
-    font-family: Inter;
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
@@ -292,13 +317,26 @@ input::placeholder {
     color: #303030;
     border-radius: 8px;
 }
-.profile-email {
+.profile-modal-links a:hover {
+    border-radius: 8px;
+    background: var(--states-hover, #F1F1F1);
+}
+.profile-modal-links a:active {
+    border-radius: 8px;
+    background: var(--states-pressed, #F0F0F0);
+}
+.profile-modal-links a:focus {
+    border-radius: 8px;
+    border: 2px solid var(--states-focused, #005BD3);
+}
+.profile-modal-links .profile-email {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    gap: initial;
     align-self: stretch;
-    /* 18.2px */
+    line-height: 18.2px;/* 18.2px */
 }
 .profile-modal .gmail-name {
     color: var(--font-dark, #303030);
@@ -309,14 +347,31 @@ input::placeholder {
 }
 .profile-modal .gmail {
     color: var(--grey-grey-100, var(--font-mid-2, #616161));
-    font-family: Inter;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: 130%;
 }
 
-
+.modal-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.alert-btn:hover, .alert-btn svg:hover, .profile-details:hover {
+    border-radius: 8px;
+    background: var(--font-mid-2, #616161);
+}
+.alert-btn:active, .alert-btn svg:active, .profile-details:active {
+    border-radius: 8px;
+    background: var(--grey-grey-50, #656266);
+}
+.alert-btn:focus, .alert-btn svg:focus, .profile-details:focus {
+    border-radius: 8px;
+    background: var(--grey-grey-50, #656266);
+    outline: 2px solid #005BD3;
+}
 main {
     display: flex;
     flex-direction: column;
@@ -326,23 +381,28 @@ main {
 .select-plan {
     display: flex;
     padding: 12px 8px 12px 16px;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
+    gap: 16px;
     align-self: stretch;
     background: var(--color-scales-gray-16, #1A1A1A);
-    margin: 2em 0 1em 0;
-    flex: 1 0 0;
+    margin: 1em 0 2em 0;
+}
+.select-plan div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 .select-plan p {
+    flex: 1 0 0;
     color: var(--font-light, #E3E3E3);
-    font-family: Inter;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
     line-height: 140%; /* 18.2px */
 }
 
-.close-btn {
+.close-button {
     display: flex;
     padding: 8px;
     align-items: flex-start;
@@ -352,7 +412,7 @@ main {
 
 .select-plan a {
     display: flex;
-    align-items: center;
+    align-self: start;
     border-radius: 6px;
     gap: 8px;
     border: 1px solid rgba(0, 0, 0, 0.10);
@@ -366,7 +426,60 @@ main {
     font-weight: 600;
     line-height: 130%; 
 }
+ .select-plan a:hover {
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background: #F7F7F7;
+    box-shadow: 0px -1px 0px 0px #B5B5B5 inset;
+}
+ .select-plan a:active {
+    border-radius: 6px;
+    background: #F7F7F7;
+    box-shadow: 0px 2px 1.5px 0px #E2E2E2 inset;
+}
 
+.display-steps:hover {
+    border-radius: 6px;
+    background: #E7E7E7;
+}
+.display-steps:active {
+    border-radius: 6px;
+    background: #E0E0E0;
+}
+.display-steps:focus {
+    border-radius: 6px;
+    border: 2px solid var(--states-focused, #005BD3);
+    background: #FFF;
+    offset: 2px;
+}
+
+.select-plan a:focus {
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background: var(--White, #FFF);
+    box-shadow: 0px 0px 0px 3px #005BD3, 0px 0px 0px 1px #FFF, 0px -1px 0px 0px #B5B5B5 inset;
+}
+.brown-button:hover {
+    border-radius: 6px;
+    border-top: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
+    border-right: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
+    border-left: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
+    background: #2A2A2A;
+    box-shadow: 0px 0px 0px 1.5px #333, 0px 1px 0px 1.5px #333, 0px 2px 0px 0px #000;
+}
+.brown-button:active {
+    border-radius: 6px;
+    background: #2B2B2B;
+    box-shadow: 0px 0px 0px 1.5px #333, 0px 3px 0px 0px #000 inset;
+}
+.brown-button:focus {
+    border-radius: 6px;
+    border-top: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
+    border-right: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
+    border-left: 1.5px solid var(--stroke-light-100, rgba(255, 255, 255, 0.20));
+    background: #404040;
+    box-shadow: 0px 0px 0px 5px #005BD3, 0px 0px 0px 3px #FFF, 0px 0px 0px 1.5px #333;
+}
 
 .setup{
     display: flex;
@@ -400,12 +513,12 @@ h1 {
     font-size: 14px;
     font-weight: 600;
     line-height: 19.6px;
+    
 }
 
 .setup-div .main-text {
     align-self: stretch;
     color: var(--font-dark, #303030);
-    font-family: Inter;
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
@@ -433,7 +546,7 @@ h1 {
 .article {
     padding: 8px 8px 12px 8px;
     align-items: start;
-    gap: 25px;
+    gap: 16px;
     align-self: stretch; 
     border-radius: 10px;
 }
@@ -447,19 +560,19 @@ h1 {
 }
 .open-article-content {
     color: var(--font-dark, #303030);
-    font-family: Inter;
     font-size: 13px;
     font-style: normal;
     font-weight: 600;
     line-height: 18.2px;
+    cursor: pointer;
 }
 .article-content p{
     color: var(--font-mid-2, #616161);
-    font-family: Inter;
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
     line-height: 140%;
+    
 }
 
 .article-content .blue {
@@ -508,9 +621,7 @@ h1 {
 .steps-completed {
     margin: 1em 0;
 }
-/* .article-heading {
-    align-items: start;
-} */
+
 
 .rotate-down {
     transform: rotate(180deg);
@@ -568,25 +679,15 @@ h1 {
     margin: 1em 0;
     padding: .7em;
 }
-/* .m-1 {
-    margin: .5em ;
-} */
+
 .ml-1{
     margin-left: .5em;
 }
 .hidden {
     display: none;
 }
-.fw-1 {
-    font-weight: 400;
-}
-.fw-2 {
-    font-weight: 500;
-}
-.fw-3 {
-    font-weight: 600;
-}
-/* Media query for screens 640px and below */
+
+/* Media query for screens 640px and below
 @media (min-width: 640px) {
     header {
         padding: 2em
@@ -623,7 +724,7 @@ h1 {
     .alert-modal-container {
         align-items: flex-end;
     }
-}
+} */
 
 @media (min-width: 1024px) {
     img {
@@ -638,23 +739,15 @@ h1 {
     header {
         padding: 1em;
     }
-    .search-container {
-        width: 50%;
-    }
-    .alert-btn {
-        background-color: #322F33;
-        padding: .2em;
-        border-radius: 10px;
-        margin-right: .5em;
-    }
-    .profile-details{
+    
+    .profile-details {
         display: flex;
-        padding: 6px;
+        padding: 2px 2px 2px 8px;
         align-items: center;
         gap: 8px;
         border-radius: 8px;
         background: var(--grey-grey-200, #303030);
-        align-self: stretch;
+        height: 32px;
     }
     .profile-name {
         display: block;
@@ -664,44 +757,60 @@ h1 {
         font-weight: 500;
         
     }
-    .profile-modal-container, .alert-modal-container{
-        top: 5em;
+     .alert-modal-container{
+        justify-content: flex-end;
+        align-items: flex-end;
 
     }
     .profile-modal, .alert-modal {
-        width: 20%;
         margin-right: 1em;
+        top: 4.5em;
     }
     .select-plan {
-        width: 70%;
         flex-direction: row;
-        align-self: center;
-        align-items: first baseline;
+        width: 800px;
+        padding: 12px 8px 12px 16px;
         justify-content: space-between;
-        padding: 1em;
-        border-radius: 10px;
+        align-items: center;
+        border-radius: 8px;
+        background: var(--grey-grey-300, #1A1A1A);
+        margin: 1em auto;
     }
 
-    .select-plan .close-button {
-        order: 3;
-        align-self: center;
-    }
-    .select-plan button:last-child {
-        margin-right: 0;
-        position: relative;
-        left: 2em;
+    .select-plan div {
+        flex-direction: row;
+        align-items: center;
+        flex: 1 0;
     }
     .setup {
-        width: 70%;
-        align-self: center;
-        background-color: white;
-        border-radius: 20px;
-        box-shadow: 0px 0px 3px rgb(168, 167, 167);
-    }
-    .setup > div {
-        padding: 1em;
+        display: flex;
+        width: 800px;
+        padding: 8px;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 16px;
+        border-radius: 18px;
+        border: 1px solid var(--stroke-s-50, #DBDBDB);
+        background: var(--White, #FFF);
+        box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.05);
+        margin: auto;
     }
     .article-content {
+        flex-direction: column;
+    }
+    .flex-box {
         flex-direction: row;
+        align-items: center;
+        align-content: center;
+        justify-content: space-between;
+    }
+    .search-container {
+        display: flex;
+        width: 480px;
+        height: 32px;
+        padding: 8px;
+        align-items: center;
+        gap: 6px;
+        flex: none;
     }
 }

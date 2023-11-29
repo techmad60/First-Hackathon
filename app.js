@@ -6,8 +6,8 @@ const profileModal = document.getElementById('profile-modal');
 const showStepsbutton = document.getElementById('show-steps-btn');
 const arrowUp = document.getElementById('arrow-up');
 const articles = document.querySelectorAll('.article');
-const closeBtn = document.querySelector('.close-button');
-const selectPlan = document.querySelector('.select-plan');
+const closeBtns = document.querySelectorAll('.close-button');
+const selectPlans = document.querySelectorAll('.select-plan');
 // Store the click counts for each button
 const clickCounts = {};
 // Select the steps completed span
@@ -16,9 +16,22 @@ const progressBar = document.querySelector('.progress-bar');
 let stepsCompletedCount = 0;
 
 
-closeBtn.addEventListener('click', () => {
-  selectPlan.classList.add('hidden');
-})
+
+closeBtns.forEach((closeButton, index) => {
+  closeButton.addEventListener('click', () => {
+    // Hide the clicked select plan
+    selectPlans[index].classList.add('hidden');
+    selectPlans[index].classList.remove('flex');
+
+    // Hide all other select plans
+    selectPlans.forEach((plan, i) => {
+      if (i !== index) {
+        plan.classList.add('hidden');
+        plan.classList.remove('flex');
+      }
+    });
+  });
+});
 
 function initializeTransitionButton(buttonId) {
   const transitionButton = document.getElementById(buttonId);
